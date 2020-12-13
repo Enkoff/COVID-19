@@ -1,0 +1,31 @@
+
+header {
+    font-family: $SerifPro;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 10vh;
+    background-color: $Blue;
+    color: $White;
+    border-bottom: 2px solid #fff;
+    margin-bottom: 1rem;
+    h1 {
+        cursor: default;
+    }
+    nav {
+        position: absolute;
+        right: 1rem;
+      
+        li {
+            outline: none;
+            cursor: pointer;
+            display: inline;
+            margin-right: 1rem;
+            transition: all .3s;
+            &:hover {
+                color: $HoverLink;
+            }
+        }
+    }
+}
