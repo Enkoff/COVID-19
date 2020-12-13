@@ -1,12 +1,12 @@
-import { root } from './createHeader'
-import rsSchoolLogo from '../img/rs_school_js.svg'
+import { root } from './createHeader';
+import rsSchoolLogo from '../img/rs_school_js.svg';
 
 export default function createFooter() {
-    const linkEnkoff = 'https://github.com/Enkoff';
-    const linkPokhylko = 'https://github.com/pokhylko';
-    const linkIra = 'https://github.com/iralitv'
-    const footerLinkRs = 'https://rs.school';
-    const footerHtmlTemplate = `
+  const linkEnkoff = 'https://github.com/Enkoff';
+  const linkPokhylko = 'https://github.com/pokhylko';
+  const linkIra = 'https://github.com/iralitv';
+  const footerLinkRs = 'https://rs.school';
+  const footerHtmlTemplate = `
     <footer class="footer">
         <div class="link-wrapper">
             <a class="footer__link" href="${linkIra}" target="_blank">mentor: Litvinchuk</a>
@@ -19,6 +19,6 @@ export default function createFooter() {
         </div>
             <a class="footer__link link__rs" href="${footerLinkRs}" target="_blank">Rs School</a>
     </footer>
-    `
-    root.insertAdjacentHTML('beforeend', footerHtmlTemplate);
+    `;
+  root.insertAdjacentHTML('beforeend', footerHtmlTemplate);
 }
