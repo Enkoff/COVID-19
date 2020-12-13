@@ -76,9 +76,4 @@ module.exports = {
             },
         ]
     },
-    devServer: {
-        contentBase: path.resolve(__dirname, "dist"),
-        publicPath: "/assets", //should provide the path of the served js , img , etc...
-        open: true,
-    },
 };
