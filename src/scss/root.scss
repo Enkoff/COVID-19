@@ -1,8 +1,10 @@
-html, body {
-    height: 100%;
+html,
+body {
+  height: 100%;
 }
+
 .root {
-    position: relative;
-    min-height: 100%;
-    background-color: $Blue;
+  position: relative;
+  min-height: 100%;
+  background-color: $Blue;
 }
