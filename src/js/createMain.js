@@ -1,10 +1,15 @@
 import { root } from './createHeader';
+import getSummary from './upperLeftBlock';
 
 export default function createMain() {
   const mainHtmlTemplate = `
     <main class="main">
         <div class="left-content">
-            <div class="global__cases"></div>
+            <div class="global-cases">
+                <h2 class="global__title"></h2>
+                <span class="global__confirmed"></span>
+                <span class="global__date"></span>
+            </div>
             <div class="cases-country"></div>
         </div>
         <div class="map-wrapper">
@@ -22,4 +27,5 @@ export default function createMain() {
     </main>
     `;
   root.insertAdjacentHTML('beforeend', mainHtmlTemplate);
+  getSummary();
 }
