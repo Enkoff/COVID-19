@@ -1,9 +1,5 @@
 import { root } from './createHeader';
 
-import { globalDeaths } from './globalDeath';
-
-globalDeaths();
-
 export default function createMain() {
   const mainHtmlTemplate = `
     <main class="main">
