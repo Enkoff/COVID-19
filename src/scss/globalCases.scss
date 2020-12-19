@@ -1,0 +1,23 @@
+.global-cases {
+  font-family: $SerifPro;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .global__title {
+    font-size: 2rem;
+    margin: 0;
+    color: #fff;
+  }
+
+  .global__confirmed {
+    color: rgb(255, 0, 43);
+    font-size: 2.5rem;
+    margin: 0.33rem 0;
+  }
+
+  .global__date {
+    color: rgb(0, 255, 115);
+  }
+}
