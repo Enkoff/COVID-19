@@ -1,8 +1,8 @@
 import { root } from './createHeader';
 
-import { globalDeaths } from './globalDeath';
+import { allCases } from './allCases';
 
-globalDeaths();
+allCases();
 
 export default function createMain() {
   const mainHtmlTemplate = `
@@ -15,10 +15,7 @@ export default function createMain() {
             <div class="map"></div>
         </div>
         <div class="right-content">
-            <div class="header__content">
-                <div class="deaths"></div>
-                <div class="recovered"></div>
-            </div>
+            <div class="all-cases"></div>
             <div class="footer__content">
                 <div class="graph"></div>
             </div>   
