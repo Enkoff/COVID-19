@@ -1,0 +1,35 @@
+@import './variables-and-fonts.scss';
+
+.deaths {
+  color: $White;
+
+  &__title {
+    text-align: center;
+    font-size: 10px;
+    margin: 10px 0;
+  }
+
+  &__total {
+    text-align: center;
+    margin: 0;
+    font-size: 25px;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 10px;
+    overflow-y: auto;
+    height: calc(100% - 79px);
+  }
+
+  &__item {
+    border-bottom: 1px solid $White;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+  }
+
+  &__content {
+    margin: 0;
+  }
+}
