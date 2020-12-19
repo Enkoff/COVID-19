@@ -1,51 +1,57 @@
 
 footer {
-    font-family: $SerifPro;
-    position: absolute;
-    bottom: 0;
-    width: 100vw;
-    height: 10vh;
+  font-family: $SerifPro;
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  height: 10vh;
+  display: flex;
+  justify-content: space-between;
+  background-color: $Blue;
+  color: $White;
+  border-top: 2px solid #fff;
+
+  .footer__link {
+    font-size: 1rem;
+    text-decoration: none;
     display: flex;
-    justify-content: space-between;
-    background-color: $Blue;
+    justify-content: center;
+    align-items: center;
     color: $White;
-    border-top: 2px solid #fff;
-    .footer__link {
-        font-size: 1rem;
-        text-decoration: none;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: $White;
-        margin-bottom: 0.1rem;
-        transition: all .3s;
-        &:hover {
-            color: $HoverLink;
-            transform: scale(0.95);
-        }
+    margin-bottom: 0.1rem;
+    transition: all 0.3s;
+
+    &:hover {
+      color: $HoverLink;
+      transform: scale(0.95);
     }
-    .link-wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-        margin-left: 1rem;
+  }
+
+  .link-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-left: 1rem;
+  }
+
+  .logo-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .logo__date {
+      font-size: 1.5rem;
+      margin-right: 1rem;
+      cursor: default;
     }
-    .logo-wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        .logo__date {
-            font-size: 1.5rem;
-            margin-right: 1rem;
-            cursor: default;
-        }
-        .logo__img {
-            width: 3rem;
-        }
-        
+
+    .logo__img {
+      width: 3rem;
     }
-    .link__rs {
-        margin-right: 1rem;
-    }
+  }
+
+  .link__rs {
+    margin-right: 1rem;
+  }
 }

@@ -1,11 +1,9 @@
-
 export const root = document.querySelector('.root');
 
 export default function createHeader() {
+  const headerTitle = 'covid-19'.toUpperCase();
 
-    const headerTitle = 'covid-19'.toUpperCase();
-
-    const headerHtmlTemplate = `
+  const headerHtmlTemplate = `
         <header class="header">
                 <div class="burger">
                     <span class="bm__lines"></span>
@@ -23,6 +21,6 @@ export default function createHeader() {
                 </nav>
             </div>
         </header>
-    `
-    root.insertAdjacentHTML('beforeend', headerHtmlTemplate);
+    `;
+  root.insertAdjacentHTML('beforeend', headerHtmlTemplate);
 }

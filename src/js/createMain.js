@@ -1,8 +1,7 @@
-import { root } from './createHeader'
- 
+import { root } from './createHeader';
+
 export default function createMain() {
-    
-    const mainHtmlTemplate = `
+  const mainHtmlTemplate = `
     <main class="main">
         <div class="left-content">
             <div class="global__cases"></div>
@@ -21,7 +20,6 @@ export default function createMain() {
             </div>   
         </div>
     </main>
-    `
-    root.insertAdjacentHTML('beforeend', mainHtmlTemplate);
-
+    `;
+  root.insertAdjacentHTML('beforeend', mainHtmlTemplate);
 }
