@@ -1,48 +1,48 @@
-import { getData } from './getData';
-
-const ALL_POPULATION = 75000;
+import { getDataV3 } from './getData';
 
 export async function allCases() {
-  const global = await getData('summary')
-    .then((res) => res.Global);
+  const global = await getDataV3('all')
+    .then((res) => res);
+
+  const ONE_HUNDRED_POPULATION = global.population / 100000;
 
   const wrapper = document.querySelector('.all-cases');
 
   const cases = `
     <div class="cases__column">
       <h3 class="cases__title">Total Confirmed</h3>
-      <p class="cases__total">${global.TotalConfirmed}</p>
-      <p class="cases__new">+ ${global.NewConfirmed}</p>
+      <p class="cases__total">${global.cases}</p>
+      <p class="cases__new">+ ${global.todayCases}</p>
     </div>
 
     <div class="cases__column">
       <h3 class="cases__title">Total Recovered</h3>
-      <p class="cases__total">${global.TotalRecovered}</p>
-      <p class="cases__new">+ ${global.NewRecovered}</p>
+      <p class="cases__total">${global.recovered}</p>
+      <p class="cases__new">+ ${global.todayRecovered}</p>
     </div>
 
     <div class="cases__column">
       <h3 class="cases__title">Total Deaths</h3>
-      <p class="cases__total">${global.TotalDeaths}</p>
-      <p class="cases__new">+ ${global.NewDeaths}</p>
+      <p class="cases__total">${global.deaths}</p>
+      <p class="cases__new">+ ${global.todayDeaths}</p>
     </div>
 
     <div class="cases__column">
       <h3 class="cases__title">Total Confirmed / 100.000</h3>
-      <p class="cases__total">${Math.ceil(global.TotalConfirmed / ALL_POPULATION)}</p>
-      <p class="cases__new">+ ${Math.ceil(global.NewConfirmed / ALL_POPULATION)}</p>
+      <p class="cases__total">${Math.ceil(global.cases / ONE_HUNDRED_POPULATION)}</p>
+      <p class="cases__new">+ ${Math.ceil(global.todayCases / ONE_HUNDRED_POPULATION)}</p>
     </div>
 
     <div class="cases__column">
       <h3 class="cases__title">Total Recovered / 100.000</h3>
-      <p class="cases__total">${Math.ceil(global.TotalRecovered / ALL_POPULATION)}</p>
-      <p class="cases__new">+ ${Math.ceil(global.NewRecovered / ALL_POPULATION)}</p>
+      <p class="cases__total">${Math.ceil(global.recovered / ONE_HUNDRED_POPULATION)}</p>
+      <p class="cases__new">+ ${Math.ceil(global.todayRecovered / ONE_HUNDRED_POPULATION)}</p>
     </div>
 
     <div class="cases__column">
       <h3 class="cases__title">Total Deaths / 100.000</h3>
-      <p class="cases__total">${Math.ceil(global.TotalDeaths / ALL_POPULATION)}</p>
-      <p class="cases__new">+ ${Math.ceil(global.NewDeaths / ALL_POPULATION)}</p>
+      <p class="cases__total">${Math.ceil(global.deaths / ONE_HUNDRED_POPULATION)}</p>
+      <p class="cases__new">+ ${Math.ceil(global.todayDeaths / ONE_HUNDRED_POPULATION)}</p>
     </div>
   `;
 
