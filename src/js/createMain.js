@@ -1,5 +1,6 @@
 import { root } from './createHeader';
 import getSummary from './upperLeftBlock';
+import summaryСountries from './lowerLeftBlock';
 
 import { allCases } from './allCases';
 
@@ -14,7 +15,12 @@ export default function createMain() {
                 <span class="global__confirmed"></span>
                 <span class="global__date"></span>
             </div>
-            <div class="cases-country"></div>
+            <div class="cases-country">
+                <h2 class="cases__title"></h2>
+                <p class="cases__sub_title"></p>
+                <ul class="country__list"></ul>
+                <buttom class="cases__btn"><p class="cases__btn_title">Deaths</p></buttom>
+            </div>
         </div>
         <div class="map-wrapper">
             <div class="map"></div>
@@ -29,4 +35,5 @@ export default function createMain() {
     `;
   root.insertAdjacentHTML('beforeend', mainHtmlTemplate);
   getSummary();
+  summaryСountries();
 }
