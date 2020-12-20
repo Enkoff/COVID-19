@@ -2,11 +2,12 @@ import { root } from './createHeader';
 import getSummary from './upperLeftBlock';
 import summaryСountries from './lowerLeftBlock';
 
+import { globalDeaths } from './globalDeath';
+import { graph } from './graph';
 import { allCases } from './allCases';
-
 allCases();
 
-export default function createMain() {
+export default async function createMain() {
   const mainHtmlTemplate = `
     <main class="main">
         <div class="left-content">
@@ -29,11 +30,14 @@ export default function createMain() {
             <div class="all-cases"></div>
             <div class="footer__content">
                 <div class="graph"></div>
+                <canvas id="myChart"></canvas>
             </div>   
         </div>
     </main>
     `;
   root.insertAdjacentHTML('beforeend', mainHtmlTemplate);
   getSummary();
+
+  await graph();
   summaryСountries();
 }
