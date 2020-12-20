@@ -1,79 +1,70 @@
-const path = require('path')
-const HTMLWebpackPlugin = require('html-webpack-plugin')
-const {CleanWebpackPlugin} = require('clean-webpack-plugin')
-const miniCss = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const webpack = require('webpack');
+const path = require('path');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 
 module.exports = {
-    context: path.resolve(__dirname, 'src'),
-    mode: 'development',
-    entry: {
-       main: './js/index.js',
-    },
+    mode: "development",
+    entry: ['./src/js/index.js','./src/scss/style.scss'],
     output: {
-        filename: '[name].[contenthash].js',
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: './',
+        path: path.join(__dirname, '/dist'),
+        filename: 'script.js',
     },
-    plugins: [
-        new HTMLWebpackPlugin({
-            template: './index.html'
-        }),
-        new CleanWebpackPlugin(),
-        new miniCss({
-            filename: '[name].[contenthash].css'
-        }),
-        new OptimizeCSSAssetsPlugin({
-            assetNameRegExp: /\.css$/g,
-            cssProcessor: require('cssnano')
-        })
-    ],
+    devtool: "eval-cheap-source-map",
     module: {
         rules: [
             {
-                test: /\.js/,
-                use:[
+                test: /.js$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader',
+            },
+            {
+                test: /\.html$/,
+                use: [
                     {
-                        loader: "babel-loader",
+                        loader: 'html-loader',
                         options: {
-                            presets: ['@babel/preset-env']
-                          }
-                    }
+                            minimize: false,
+                        },
+                    },
+                ],
+            },
+            {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    MiniCssExtractPlugin.loader,'css-loader','sass-loader'
                 ]
             },
             {
-                test: /\.css$/,
-                use: ['style-loader','css-loader']
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                loader: 'file-loader',
+                options: { outputPath: 'fonts',name: "[name].[ext]"},
             },
             {
-                test: /\.(png|jpg|svg|gif|mp3)$/,
-                use: [{
-                    loader: 'file-loader',
-                    options: {
-                        name: '[path][name].[ext]',
-                    }
-                }, {
-                    loader: 'image-webpack-loader',
-                    options: {
-                        mozjpeg: {
-                            progressive: true,
-                            quality: 70
-                        }
-                    }         
-                }],
-            },
-            {
-                test: /\.(ttf|woff|woff2|eot)$/,
-                use: ['file-loader']
-            },
-             {
-                test:/\.(s*)css$/,
-                use: [miniCss.loader,
-                    "css-loader", 
-                    "sass-loader", 
-                ],
-            },
+                test: /\.(png|svg|jpe?g|gif|ico)$/i,
+                loader: 'file-loader',
+                options: { outputPath: 'images',name: "[name].[ext]" },
+            }
         ]
     },
-};
+    plugins: [
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            favicon: 'src/favicon.ico',
+            template: 'src/index.html',
+            filename: 'index.html'
+        }),
+        new MiniCssExtractPlugin({
+            filename: 'style.css'
+        }),
+        new CopyWebpackPlugin([
+            {from: './src/img', to: './img'},
+        ])
+    ],
+    devServer: {
+        open: true,
+    },
+}
