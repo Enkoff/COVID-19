@@ -2,7 +2,7 @@ import { root } from './createHeader';
 import getSummary from './upperLeftBlock';
 import summaryСountries from './lowerLeftBlock';
 
-// import { globalDeaths } from './globalDeath';
+import { globalDeaths } from './globalDeath';
 import { graph } from './graph';
 import { allCases } from './allCases';
 
