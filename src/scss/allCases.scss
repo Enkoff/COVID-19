@@ -1,0 +1,19 @@
+@import './variables-and-fonts.scss';
+
+.cases {
+  &__title {
+    font-size: 12px;
+    margin: 10px 0;
+  }
+
+  &__total {
+    margin: 0;
+    font-size: 20px;
+  }
+
+  &__new {
+    margin: 0;
+    font-size: 17px;
+    color: $Grey;
+  }
+}
