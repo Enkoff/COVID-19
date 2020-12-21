@@ -19,14 +19,20 @@ export default function summaryСountries() {
     const сontries = res;
 
     сontries.sort((a, b) => (b.cases > a.cases ? 1 : -1)).map((el) => {
+      console.log(el);
       const item = document.createElement('li');
       item.classList.add('country__item');
       item.textContent = `${el.cases}`;
-      const itemSpan = document.createElement('span');
 
+      const itemSpan = document.createElement('span');
       itemSpan.classList.add('country__item_span');
       itemSpan.textContent = `${el.country}`;
       item.append(itemSpan);
+
+      const itemImg = document.createElement('img');
+      itemImg.classList.add('country__flag');
+      itemImg.src = el.countryInfo.flag;
+      item.append(itemImg);
 
       fragment.append(item);
     });
