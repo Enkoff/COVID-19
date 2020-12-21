@@ -1,9 +1,13 @@
-import { getData } from './getData';
+/* eslint-disable array-callback-return */
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-console */
+import { getDataV3 } from './getData';
 
 export default function summaryСountries() {
-  const summaryURL = 'summary';
+  const allURL = 'countries';
 
-  getData(summaryURL).then((res) => {
+  getDataV3(allURL).then((res) => {
+    console.log(res);
     const casesTitle = document.querySelector('.cases__title');
     casesTitle.textContent = 'Cases by';
 
@@ -12,17 +16,16 @@ export default function summaryСountries() {
 
     const casesList = document.querySelector('.country__list');
     const fragment = document.createDocumentFragment();
-    const сontries = res.Countries;
+    const сontries = res;
 
-    // eslint-disable-next-line array-callback-return
-    сontries.sort((a, b) => (b.TotalConfirmed > a.TotalConfirmed ? 1 : -1)).map((el) => {
+    сontries.sort((a, b) => (b.cases > a.cases ? 1 : -1)).map((el) => {
       const item = document.createElement('li');
       item.classList.add('country__item');
-      item.textContent = `${el.TotalConfirmed}`;
+      item.textContent = `${el.cases}`;
       const itemSpan = document.createElement('span');
 
       itemSpan.classList.add('country__item_span');
-      itemSpan.textContent = `${el.Country}`;
+      itemSpan.textContent = `${el.country}`;
       item.append(itemSpan);
 
       fragment.append(item);
@@ -34,30 +37,25 @@ export default function summaryСountries() {
     const allItem = document.querySelectorAll('.country__item');
     const deathsClass = 'item-deaths';
     const recoveredClass = 'item-recovered';
-    // const allItemSpan = document.querySelectorAll('.country__item_span');
     let activBtn = 1;
     casesBtn.addEventListener('click', () => {
       if (activBtn === 1) {
-        // eslint-disable-next-line no-use-before-define
         changeItem();
       } else if (activBtn === 2) {
-        // eslint-disable-next-line no-use-before-define
         changeItem();
       } else {
-        // eslint-disable-next-line no-use-before-define
         changeItem();
       }
     });
     function changeItem() {
       if (activBtn === 1) {
-        const sortRecovered = сontries.sort((a, b) => (b.TotalDeaths > a.TotalDeaths ? 1 : -1));
-        // eslint-disable-next-line array-callback-return
+        const sortRecovered = сontries.sort((a, b) => (b.deaths > a.deaths ? 1 : -1));
         sortRecovered.map((el, i) => {
-          allItem[i].textContent = `${el.TotalDeaths}`;
+          allItem[i].textContent = `${el.deaths}`;
 
           const itemSpan = document.createElement('span');
           itemSpan.classList.add('country__item_span');
-          itemSpan.textContent = `${el.Country}`;
+          itemSpan.textContent = `${el.country}`;
           allItem[i].append(itemSpan);
 
           allItem[i].classList.add(deathsClass);
@@ -65,15 +63,13 @@ export default function summaryСountries() {
         casesBtnTitle.textContent = 'Recovered';
         activBtn = 2;
       } else if (activBtn === 2) {
-        // eslint-disable-next-line max-len
-        const sortConfirmed = сontries.sort((a, b) => (b.TotalRecovered > a.TotalRecovered ? 1 : -1));
-        // eslint-disable-next-line array-callback-return
+        const sortConfirmed = сontries.sort((a, b) => (b.recovered > a.recovered ? 1 : -1));
         sortConfirmed.map((el, i) => {
-          allItem[i].textContent = `${el.TotalRecovered}`;
+          allItem[i].textContent = `${el.recovered}`;
 
           const itemSpan = document.createElement('span');
           itemSpan.classList.add('country__item_span');
-          itemSpan.textContent = `${el.Country}`;
+          itemSpan.textContent = `${el.country}`;
           allItem[i].append(itemSpan);
 
           allItem[i].classList.remove(deathsClass);
@@ -82,14 +78,13 @@ export default function summaryСountries() {
         casesBtnTitle.textContent = 'Confirmed';
         activBtn = 3;
       } else {
-        const sortDeaths = сontries.sort((a, b) => (b.TotalConfirmed > a.TotalConfirmed ? 1 : -1));
-        // eslint-disable-next-line array-callback-return
+        const sortDeaths = сontries.sort((a, b) => (b.cases > a.cases ? 1 : -1));
         sortDeaths.map((el, i) => {
-          allItem[i].textContent = `${el.TotalConfirmed}`;
+          allItem[i].textContent = `${el.cases}`;
 
           const itemSpan = document.createElement('span');
           itemSpan.classList.add('country__item_span');
-          itemSpan.textContent = `${el.Country}`;
+          itemSpan.textContent = `${el.country}`;
           allItem[i].append(itemSpan);
 
           allItem[i].classList.remove(recoveredClass);
