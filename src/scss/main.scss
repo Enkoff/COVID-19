@@ -29,12 +29,21 @@ main {
     display: flex;
     justify-content: center;
     width: 50%;
+    position: relative;
 
     .map {
       width: 95%;
       height: 98%;
       border-radius: $Border-radius;
       box-shadow: $Box-shadow;
+    }
+
+    .map__btn {
+      position: absolute;
+      left: 4%;
+      bottom: 3%;
+      width: 4rem;
+      height: 1.5rem;
     }
   }
 
