@@ -23,3 +23,15 @@ export const getDataGrapg = async () => {
     return e;
   }
 };
+
+export const getDataV3 = async (dataParametrUrl = '') => {
+  try {
+    const url = `https://disease.sh/v3/covid-19/${dataParametrUrl}`;
+    const res = await fetch(url);
+    const data = await res.json();
+
+    return data;
+  } catch (e) {
+    return e;
+  }
+};

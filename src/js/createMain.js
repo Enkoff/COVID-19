@@ -5,6 +5,7 @@ import summaryСountries from './lowerLeftBlock';
 import { globalDeaths } from './globalDeath';
 import { graph } from './graph';
 import { allCases } from './allCases';
+
 allCases();
 
 export default async function createMain() {
@@ -29,8 +30,8 @@ export default async function createMain() {
         <div class="right-content">
             <div class="all-cases"></div>
             <div class="footer__content">
-                <div class="graph"></div>
                 <canvas id="myChart"></canvas>
+                <button class="button graph__button"></button>
             </div>   
         </div>
     </main>
