@@ -9,16 +9,6 @@ export default function createHeader() {
                     <span class="bm__lines"></span>
                 </div>
                 <h1 class="title">${headerTitle}</h1>
-                <nav>
-                    <ul>
-                        <li>Link</li>
-                        <li>Link</li>
-                        <li>Link</li>
-                        <li>Link</li>
-                        <li>Link</li>
-                        <li>Link</li>
-                    </ul>
-                </nav>
             </div>
         </header>
     `;

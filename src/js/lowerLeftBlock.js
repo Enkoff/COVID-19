@@ -1,9 +1,12 @@
-import { getData } from './getData';
+/* eslint-disable array-callback-return */
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-console */
+import { getDataV3 } from './getData';
 
 export default function summaryСountries() {
-  const summaryURL = 'summary';
+  const allURL = 'countries';
 
-  getData(summaryURL).then((res) => {
+  getDataV3(allURL).then((res) => {
     const casesTitle = document.querySelector('.cases__title');
     casesTitle.textContent = 'Cases by';
 
@@ -12,18 +15,26 @@ export default function summaryСountries() {
 
     const casesList = document.querySelector('.country__list');
     const fragment = document.createDocumentFragment();
-    const сontries = res.Countries;
+    const countries = res;
 
-    // eslint-disable-next-line array-callback-return
-    сontries.sort((a, b) => (b.TotalConfirmed > a.TotalConfirmed ? 1 : -1)).map((el) => {
+    countries.sort((a, b) => (b.cases > a.cases ? 1 : -1)).map((el) => {
       const item = document.createElement('li');
       item.classList.add('country__item');
-      item.textContent = `${el.TotalConfirmed}`;
-      const itemSpan = document.createElement('span');
 
+      const itemTotalCases = document.createElement('span');
+      itemTotalCases.classList.add('country__total');
+      itemTotalCases.textContent = `${el.cases}`;
+      item.append(itemTotalCases);
+
+      const itemSpan = document.createElement('span');
       itemSpan.classList.add('country__item_span');
-      itemSpan.textContent = `${el.Country}`;
+      itemSpan.textContent = `${el.country}`;
       item.append(itemSpan);
+
+      const itemImg = document.createElement('img');
+      itemImg.classList.add('country__flag');
+      itemImg.src = el.countryInfo.flag;
+      item.append(itemImg);
 
       fragment.append(item);
     });
@@ -32,71 +43,42 @@ export default function summaryСountries() {
     const casesBtn = document.querySelector('.cases__btn');
     const casesBtnTitle = document.querySelector('.cases__btn_title');
     const allItem = document.querySelectorAll('.country__item');
+    const allTotal = document.querySelectorAll('.country__total');
+    const allItemSpan = document.querySelectorAll('.country__item_span');
+    const allFlag = document.querySelectorAll('.country__flag');
     const deathsClass = 'item-deaths';
     const recoveredClass = 'item-recovered';
-    // const allItemSpan = document.querySelectorAll('.country__item_span');
-    let activBtn = 1;
+
     casesBtn.addEventListener('click', () => {
-      if (activBtn === 1) {
-        // eslint-disable-next-line no-use-before-define
-        changeItem();
-      } else if (activBtn === 2) {
-        // eslint-disable-next-line no-use-before-define
-        changeItem();
+      if (casesBtn.textContent === 'Deaths') {
+        const sortDeaths = countries.sort((a, b) => (b.deaths > a.deaths ? 1 : -1));
+        changeItem(sortDeaths, 'Recovered', deathsClass);
+      } else if (casesBtn.textContent === 'Recovered') {
+        const sortRecorved = countries.sort((a, b) => (b.recovered > a.recovered ? 1 : -1));
+        changeItem(sortRecorved, 'Confirmed', recoveredClass, deathsClass);
       } else {
-        // eslint-disable-next-line no-use-before-define
-        changeItem();
+        const sortConfirmed = countries.sort((a, b) => (b.cases > a.cases ? 1 : -1));
+        changeItem(sortConfirmed, 'Deaths', '', recoveredClass);
       }
     });
-    function changeItem() {
-      if (activBtn === 1) {
-        const sortRecovered = сontries.sort((a, b) => (b.TotalDeaths > a.TotalDeaths ? 1 : -1));
-        // eslint-disable-next-line array-callback-return
-        sortRecovered.map((el, i) => {
-          allItem[i].textContent = `${el.TotalDeaths}`;
 
-          const itemSpan = document.createElement('span');
-          itemSpan.classList.add('country__item_span');
-          itemSpan.textContent = `${el.Country}`;
-          allItem[i].append(itemSpan);
-
-          allItem[i].classList.add(deathsClass);
-        });
-        casesBtnTitle.textContent = 'Recovered';
-        activBtn = 2;
-      } else if (activBtn === 2) {
-        // eslint-disable-next-line max-len
-        const sortConfirmed = сontries.sort((a, b) => (b.TotalRecovered > a.TotalRecovered ? 1 : -1));
-        // eslint-disable-next-line array-callback-return
-        sortConfirmed.map((el, i) => {
-          allItem[i].textContent = `${el.TotalRecovered}`;
-
-          const itemSpan = document.createElement('span');
-          itemSpan.classList.add('country__item_span');
-          itemSpan.textContent = `${el.Country}`;
-          allItem[i].append(itemSpan);
-
-          allItem[i].classList.remove(deathsClass);
-          allItem[i].classList.add(recoveredClass);
-        });
-        casesBtnTitle.textContent = 'Confirmed';
-        activBtn = 3;
-      } else {
-        const sortDeaths = сontries.sort((a, b) => (b.TotalConfirmed > a.TotalConfirmed ? 1 : -1));
-        // eslint-disable-next-line array-callback-return
-        sortDeaths.map((el, i) => {
-          allItem[i].textContent = `${el.TotalConfirmed}`;
-
-          const itemSpan = document.createElement('span');
-          itemSpan.classList.add('country__item_span');
-          itemSpan.textContent = `${el.Country}`;
-          allItem[i].append(itemSpan);
-
-          allItem[i].classList.remove(recoveredClass);
-        });
-        casesBtnTitle.textContent = 'Deaths';
-        activBtn = 1;
-      }
+    function changeItem(sortCountries, btnText, addClass, removeClass) {
+      sortCountries.map((el, i) => {
+        if (btnText === 'Recovered') {
+          allTotal[i].textContent = `${el.deaths}`;
+          allItem[i].classList.add(addClass);
+        } else if (btnText === 'Confirmed') {
+          allTotal[i].textContent = `${el.recovered}`;
+          allItem[i].classList.remove(removeClass);
+          allItem[i].classList.add(addClass);
+        } else {
+          allTotal[i].textContent = `${el.cases}`;
+          allItem[i].classList.remove(removeClass);
+        }
+        allItemSpan[i].textContent = `${el.country}`;
+        allFlag[i].src = `${el.countryInfo.flag}`;
+      });
+      casesBtnTitle.textContent = btnText;
     }
   });
 }
