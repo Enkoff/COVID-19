@@ -21,7 +21,7 @@ export default async function createMain() {
                 <h2 class="cases__title"></h2>
                 <p class="cases__sub_title"></p>
                 <div class="container">
-                    <input type="text" placeholder="Search...">
+                    <input type="text" class="search-imput" placeholder="Search...">
                     <div class="search"></div>
                 </div>
                 <ul class="country__list"></ul>
@@ -45,7 +45,6 @@ export default async function createMain() {
   getSummary();
   addMap();
   summaryСountries();
-
-  await graph();
   createSearch();
+  await graph();
 }
