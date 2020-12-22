@@ -4,6 +4,7 @@ import summaryСountries from './lowerLeftBlock';
 import { graph } from './graph';
 import { allCases } from './allCases';
 import addMap from './map';
+import createSearch from './searchMenu';
 
 allCases();
 
@@ -19,6 +20,10 @@ export default async function createMain() {
             <div class="cases-country">
                 <h2 class="cases__title"></h2>
                 <p class="cases__sub_title"></p>
+                <div class="container">
+                    <input type="text" class="search-imput" placeholder="Search...">
+                    <div class="search"></div>
+                </div>
                 <ul class="country__list"></ul>
                 <buttom class="cases__btn"><p class="cases__btn_title">Deaths</p></buttom>
             </div>
@@ -40,7 +45,7 @@ export default async function createMain() {
   root.insertAdjacentHTML('beforeend', mainHtmlTemplate);
   getSummary();
   addMap();
-
-  await graph();
   summaryСountries();
+  createSearch();
+  await graph();
 }
