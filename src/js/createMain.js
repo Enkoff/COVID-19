@@ -32,6 +32,7 @@ export default async function createMain() {
             <div class="footer__content">
                 <div class="graph"></div>
                 <canvas id="myChart"></canvas>
+                <button class="button graph__button">Deaths</button>
             </div>   
         </div>
     </main>
