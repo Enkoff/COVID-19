@@ -39,7 +39,6 @@ export default async function createMain() {
   root.insertAdjacentHTML('beforeend', mainHtmlTemplate);
   getSummary();
   addMap();
-
-  await graph();
   summaryСountries();
+  await graph();
 }
