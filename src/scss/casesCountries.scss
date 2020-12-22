@@ -33,7 +33,7 @@
   }
 
   .country__item {
-    color: rgb(255, 0, 43);
+    color: #f00;
     font-weight: 600;
     list-style: none;
     border-bottom: 1px solid #fff;
@@ -42,6 +42,10 @@
     &:hover {
       cursor: pointer;
     }
+
+    .country__total {
+      font-weight: 200;
+    }
   }
 
   .hide {
@@ -49,7 +53,7 @@
   }
 
   .country_activ {
-    background-color: #2e0b8c;
+    background-color: rgba(0, 0, 0, 0.3);
   }
 
   .country__flag {
