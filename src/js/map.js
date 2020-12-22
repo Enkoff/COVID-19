@@ -1,10 +1,14 @@
+/* eslint-disable no-console */
+/* eslint-disable import/no-mutable-exports */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-undef */
 /* eslint-disable array-callback-return */
 import { getDataV3 } from './getData';
 
+let myMap;
+
 export default async function addMap() {
-  const myMap = L.map('map').setView([49, 32], 4);
+  myMap = L.map('map').setView([49, 32], 4);
   const red = '#ff002b';
   const black = '#070707';
   const lightGreen = '#00f597';
@@ -17,8 +21,14 @@ export default async function addMap() {
     maxZoom: 8,
   }).addTo(myMap);
 
+  const bounds = L.latLngBounds([-200, -200], [200, 200]);
+  myMap.setMaxBounds(bounds);
+  myMap.on('drag', () => {
+    myMap.panInsideBounds(bounds, { animate: false });
+  });
+
   const createMarker = (paint, title = 'Confirmed') => {
-    const createCircle = (lat, long, cases, text) => {
+    const createCircle = (lat, long, cases, text, countryName) => {
       let r;
       if (cases > 10000000) {
         r = 20;
@@ -44,6 +54,17 @@ export default async function addMap() {
         radius: r,
       }).addTo(myMap);
       circle.bindPopup(`${text}`);
+      circle.on('click', () => {
+        const countryList = document.querySelectorAll('.country__item');
+        for (const el of countryList) {
+          if (el.innerText.replace(/[0-9]/g, '') === countryName) {
+            for (const element of countryList) {
+              element.classList.remove('country_activ');
+            }
+            el.classList.add('country_activ');
+          }
+        }
+      });
       allMrker.push(circle);
     };
 
@@ -55,7 +76,7 @@ export default async function addMap() {
           confirmed: el.cases,
           deaths: el.deaths,
           recovered: el.recovered,
-          country: el.country.toUpperCase(),
+          country: el.country,
         };
         let amount;
         if (title === 'Deaths') {
@@ -65,8 +86,8 @@ export default async function addMap() {
         } else {
           amount = obj.confirmed;
         }
-        const popupText = `<b>${obj.country}</b><br>Total ${title}: ${amount}`;
-        createCircle(obj.lat, obj.long, amount, popupText);
+        const popupText = `<b>${obj.country.toUpperCase()}</b><br>Total ${title}: ${amount}`;
+        createCircle(obj.lat, obj.long, amount, popupText, obj.country);
       });
     });
   };
@@ -96,3 +117,5 @@ export default async function addMap() {
   });
   createMarker(red);
 }
+
+export { myMap };
