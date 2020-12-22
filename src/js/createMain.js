@@ -1,3 +1,4 @@
+/* eslint-disable no-tabs */
 import { root } from './createHeader';
 import getSummary from './upperLeftBlock';
 import summaryСountries from './lowerLeftBlock';
@@ -30,7 +31,29 @@ export default async function createMain() {
         </div>
         <div class="map-wrapper">
             <div id="map" class="map"></div>
-            <buttom class="cases__btn map__btn"><p class="cases__btn_title map__btn_title">Deaths</p></buttom>
+			    <ul class="map-navigation">
+                    <li><span>Total</span>
+                        <ul>
+				   		    <li><span>Total Confirmed</span></li>
+				   		    <li><span>Total Deaths</span></li>
+				   		    <li><span>Total Recovered</span></li>
+					    </ul> 
+                    </li>
+                    <li><span>Total / 100.000</span>
+                        <ul>
+				   		    <li><span>Total Confirmed / 100.000</span></li>
+				   		    <li><span>Total Deaths / 100.000</span></li>
+				   		    <li><span>Total Recovered / 100.000</span></li>
+					    </ul> 
+                    </li>
+            	    <li><span>Today</span>
+					    <ul>
+				   		    <li><span>Today Confirmed</span></li>
+				   		    <li><span>Today Deaths</span></li>
+				   		    <li><span>Today Recovered</span></li>
+					    </ul>         
+                    </li>        
+                </ul>    
         </div>
         <div class="right-content">
             <div class="all-cases"></div>
