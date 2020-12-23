@@ -1,7 +1,12 @@
+/* eslint-disable import/no-mutable-exports */
 /* eslint-disable array-callback-return */
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-console */
 import { getDataV3 } from './getData';
+
+let allTotal;
+let allItemSpan;
+let allFlag;
 
 export default function summaryСountries() {
   const allURL = 'countries';
@@ -39,5 +44,11 @@ export default function summaryСountries() {
       fragment.append(item);
     });
     casesList.append(fragment);
+
+    allTotal = document.querySelectorAll('.country__total');
+    allItemSpan = document.querySelectorAll('.country__item_span');
+    allFlag = document.querySelectorAll('.country__flag');
   });
 }
+
+export { allTotal, allItemSpan, allFlag };

@@ -1,9 +1,13 @@
+/* eslint-disable no-case-declarations */
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-shadow */
 /* eslint-disable no-console */
 /* eslint-disable import/no-mutable-exports */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-undef */
 /* eslint-disable array-callback-return */
 import { getDataV3 } from './getData';
+import { allTotal, allItemSpan, allFlag } from './lowerLeftBlock';
 
 let myMap;
 
@@ -100,13 +104,29 @@ export default async function addMap() {
           country: el.country,
         };
 
+        // const allItem = document.querySelectorAll('.country__item');
+        // const deathsClass = 'item-deaths';
+        // const recoveredClass = 'item-recovered';
+        const sorts = res;
         let amount;
         switch (title) {
           case 'Total Confirmed':
             amount = obj.totalConfirmed;
+            const totalConfirmed = sorts.sort((a, b) => (b.cases > a.cases ? 1 : -1));
+            totalConfirmed.map((elem, i) => {
+              allTotal[i].textContent = `${elem.cases}`;
+              allItemSpan[i].textContent = `${elem.country}`;
+              allFlag[i].src = `${elem.countryInfo.flag}`;
+            });
             break;
           case 'Total Deaths':
             amount = obj.totalDeaths;
+            const totalDeaths = sorts.sort((a, b) => (b.deaths > a.deaths ? 1 : -1));
+            totalDeaths.map((elem, i) => {
+              allTotal[i].textContent = `${elem.cases}`;
+              allItemSpan[i].textContent = `${elem.country}`;
+              allFlag[i].src = `${elem.countryInfo.flag}`;
+            });
             break;
           case 'Total Recovered':
             amount = obj.totalRecovered;
@@ -143,6 +163,14 @@ export default async function addMap() {
         }
         const popupText = `<b>${obj.country.toUpperCase()}</b><br>${title}: ${amount}`;
         createCircle(obj.lat, obj.long, amount, popupText, obj.country);
+
+        // function changeItem(sortCountries) {
+        //   sortCountries.map((elem, i) => {
+        //     allTotal[i].textContent = `${elem.cases}`;
+        //     allItemSpan[i].textContent = `${elem.country}`;
+        //     allFlag[i].src = `${elem.countryInfo.flag}`;
+        //   });
+        // }
       });
     });
   };

@@ -92,6 +92,7 @@ $duration: map-get($elastic, 'duration');
     opacity: 1;
     visibility: visible;
     transition-delay: 0s;
+    z-index: 10000;
 
     .navigation__inner {
       background-color: $backgroundColor;

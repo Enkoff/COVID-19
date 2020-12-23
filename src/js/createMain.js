@@ -103,8 +103,8 @@ export default async function createMain() {
     `;
   root.insertAdjacentHTML('beforeend', mainHtmlTemplate);
   getSummary();
-  addMap();
   summaryСountries();
+  addMap();
   createSearch();
   await graph();
 }
