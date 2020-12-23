@@ -24,7 +24,7 @@ export default function countryListener() {
             }
           }
 
-          myMap.panTo(new L.LatLng(el.countryInfo.lat, el.countryInfo.long));
+          myMap.panTo(new L.LatLng(el.countryInfo.lat, el.countryInfo.long), 8);
         }
       });
     });
