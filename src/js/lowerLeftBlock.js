@@ -39,46 +39,5 @@ export default function summaryСountries() {
       fragment.append(item);
     });
     casesList.append(fragment);
-
-    const casesBtn = document.querySelector('.cases__btn');
-    const casesBtnTitle = document.querySelector('.cases__btn_title');
-    const allItem = document.querySelectorAll('.country__item');
-    const allTotal = document.querySelectorAll('.country__total');
-    const allItemSpan = document.querySelectorAll('.country__item_span');
-    const allFlag = document.querySelectorAll('.country__flag');
-    const deathsClass = 'item-deaths';
-    const recoveredClass = 'item-recovered';
-
-    casesBtn.addEventListener('click', () => {
-      if (casesBtn.textContent === 'Deaths') {
-        const sortDeaths = countries.sort((a, b) => (b.deaths > a.deaths ? 1 : -1));
-        changeItem(sortDeaths, 'Recovered', deathsClass);
-      } else if (casesBtn.textContent === 'Recovered') {
-        const sortRecorved = countries.sort((a, b) => (b.recovered > a.recovered ? 1 : -1));
-        changeItem(sortRecorved, 'Confirmed', recoveredClass, deathsClass);
-      } else {
-        const sortConfirmed = countries.sort((a, b) => (b.cases > a.cases ? 1 : -1));
-        changeItem(sortConfirmed, 'Deaths', '', recoveredClass);
-      }
-    });
-
-    function changeItem(sortCountries, btnText, addClass, removeClass) {
-      sortCountries.map((el, i) => {
-        if (btnText === 'Recovered') {
-          allTotal[i].textContent = `${el.deaths}`;
-          allItem[i].classList.add(addClass);
-        } else if (btnText === 'Confirmed') {
-          allTotal[i].textContent = `${el.recovered}`;
-          allItem[i].classList.remove(removeClass);
-          allItem[i].classList.add(addClass);
-        } else {
-          allTotal[i].textContent = `${el.cases}`;
-          allItem[i].classList.remove(removeClass);
-        }
-        allItemSpan[i].textContent = `${el.country}`;
-        allFlag[i].src = `${el.countryInfo.flag}`;
-      });
-      casesBtnTitle.textContent = btnText;
-    }
   });
 }
