@@ -69,24 +69,43 @@ export default async function addMap() {
     };
 
     getDataV3('countries').then((res) => {
+      console.log(res);
       res.map((el) => {
         const obj = {
           lat: el.countryInfo.lat,
           long: el.countryInfo.long,
-          confirmed: el.cases,
-          deaths: el.deaths,
-          recovered: el.recovered,
+          totalConfirmed: el.cases,
+          totalDeaths: el.deaths,
+          totalRecovered: el.recovered,
+          todayConfirmed: el.todayCases,
+          todayDeaths: el.todayDeaths,
+          todayRecovered: el.todayRecovered,
+          hundredConfirmed: Math.ceil(el.cases / (el.population / 100000)),
+          hundredDeaths: Math.ceil(el.deaths / (el.population / 100000)),
+          hundredRecovered: Math.ceil(el.recovered / (el.population / 100000)),
           country: el.country,
         };
         let amount;
-        if (title === 'Deaths') {
-          amount = obj.deaths;
-        } else if (title === 'Recovered') {
-          amount = obj.recovered;
+        if (title === 'Total Confirmed') {
+          amount = obj.totalConfirmed;
+        } else if (title === 'Total Deaths') {
+          amount = obj.totalDeaths;
+        } else if (title === 'Total Recovered') {
+          amount = obj.totalRecovered;
+        } else if (title === 'Today Confirmed') {
+          amount = obj.todayConfirmed;
+        } else if (title === 'Today Deaths') {
+          amount = obj.todayDeaths;
+        } else if (title === 'Today Recovered') {
+          amount = obj.todayRecovered;
+        } else if (title === 'Total Confirmed / 100.000') {
+          amount = obj.hundredConfirmed;
+        } else if (title === 'Total Deaths / 100.000') {
+          amount = obj.hundredDeaths;
         } else {
-          amount = obj.confirmed;
+          amount = obj.hundredRecovered;
         }
-        const popupText = `<b>${obj.country.toUpperCase()}</b><br>Total ${title}: ${amount}`;
+        const popupText = `<b>${obj.country.toUpperCase()}</b><br>${title}: ${amount}`;
         createCircle(obj.lat, obj.long, amount, popupText, obj.country);
       });
     });
@@ -99,23 +118,19 @@ export default async function addMap() {
     allMrker = [];
   };
 
-  const mapBtn = document.querySelector('.map__btn');
-  const mapBtnTitle = document.querySelector('.map__btn_title');
-  mapBtn.addEventListener('click', () => {
-    const btnText = mapBtnTitle.textContent;
+  const mapNavigatin = document.querySelector('.map-navigation');
+  mapNavigatin.addEventListener('click', (e) => {
+    const clickText = e.target.innerText;
     removeMarker();
-    if (btnText === 'Deaths') {
-      mapBtnTitle.textContent = 'Recovered';
-      createMarker(black, btnText);
-    } else if (btnText === 'Recovered') {
-      mapBtnTitle.textContent = 'Confirmed';
-      createMarker(lightGreen, btnText);
+    if (clickText.indexOf('Deaths') !== -1) {
+      createMarker(black, clickText);
+    } else if (clickText.indexOf('Recovered') !== -1) {
+      createMarker(lightGreen, clickText);
     } else {
-      mapBtnTitle.textContent = 'Deaths';
-      createMarker(red, btnText);
+      createMarker(red, clickText);
     }
   });
-  createMarker(red);
+  createMarker(red, 'Total Confirmed');
 }
 
 export { myMap };
