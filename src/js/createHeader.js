@@ -5,11 +5,7 @@ export default function createHeader() {
 
   const headerHtmlTemplate = `
         <header class="header">
-                <div class="burger">
-                    <span class="bm__lines"></span>
-                </div>
-                <h1 class="title">${headerTitle}</h1>
-            </div>
+          <h1 class="title">${headerTitle}</h1>
         </header>
     `;
   root.insertAdjacentHTML('beforeend', headerHtmlTemplate);

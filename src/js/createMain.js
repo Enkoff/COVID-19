@@ -1,3 +1,4 @@
+/* eslint-disable no-tabs */
 import { root } from './createHeader';
 import getSummary from './upperLeftBlock';
 import summaryСountries from './lowerLeftBlock';
@@ -24,13 +25,85 @@ export default async function createMain() {
                     <input type="text" class="search-imput" placeholder="Search...">
                     <div class="search"></div>
                 </div>
+                <ul id="country-nav" class="map-navigation country-navigation">
+                    <li><span class"map__item country__total">Total</span>
+                        <ul>
+                            <li><span>Total Confirmed</span></li>
+                            <li><span>Total Deaths</span></li>
+                            <li><span>Total Recovered</span></li>
+                        </ul> 
+                    </li>
+                    <li><span class"map__item">Total / 100.000</span>
+                        <ul>
+				   		    <li><span>Total Confirmed / 100.000</span></li>
+				   		    <li><span>Total Deaths / 100.000</span></li>
+				   		    <li><span>Total Recovered / 100.000</span></li>
+					    </ul> 
+                    </li>
+                    <li><span class"map__item country__today">Today</span>
+					    <ul>
+				   		    <li><span>Today Confirmed</span></li>
+				   		    <li><span>Today Deaths</span></li>
+				   		    <li><span>Today Recovered</span></li>
+					    </ul>         
+                    </li>
+                    <li><span>Today / 100.000</span>
+					    <ul>
+				   		    <li><span>Today Confirmed / 100.000</span></li>
+				   		    <li><span>Today Deaths / 100.000</span></li>
+				   		    <li><span>Today Recovered / 100.000</span></li>
+					    </ul>         
+                    </li>
+                </ul>
                 <ul class="country__list"></ul>
-                <buttom class="cases__btn"><p class="cases__btn_title">Deaths</p></buttom>
             </div>
         </div>
         <div class="map-wrapper">
             <div id="map" class="map"></div>
-            <buttom class="cases__btn map__btn"><p class="cases__btn_title map__btn_title">Deaths</p></buttom>
+			    <ul id="map-nav" class="map-navigation">
+                    <li><span class"map__item">Total</span>
+                        <ul>
+				   		    <li><span>Total Confirmed</span></li>
+				   		    <li><span>Total Deaths</span></li>
+				   		    <li><span>Total Recovered</span></li>
+					    </ul> 
+                    </li>
+                    <li><span class"map__item">Total / 100.000</span>
+                        <ul>
+				   		    <li><span>Total Confirmed / 100.000</span></li>
+				   		    <li><span>Total Deaths / 100.000</span></li>
+				   		    <li><span>Total Recovered / 100.000</span></li>
+					    </ul> 
+                    </li>
+            	    <li><span class"map__item">Today</span>
+					    <ul>
+				   		    <li><span>Today Confirmed</span></li>
+				   		    <li><span>Today Deaths</span></li>
+				   		    <li><span>Today Recovered</span></li>
+					    </ul>         
+                    </li>
+                    <li><span>Today / 100.000</span>
+					    <ul>
+				   		    <li><span>Today Confirmed / 100.000</span></li>
+				   		    <li><span>Today Deaths / 100.000</span></li>
+				   		    <li><span>Today Recovered / 100.000</span></li>
+					    </ul>         
+                    </li>          
+                </ul>    
+                <div class="leg">
+                    <div class="leg-wrapper">
+                        <div class="circle__confirmed"></div>
+                        <span>Confirmed</span>
+                    </div>
+                    <div class="leg-wrapper">
+                        <div class="circle__deaths"></div>
+                        <span class="center__span">Deaths</span>
+                    </div>
+                    <div class="leg-wrapper">
+                        <div class="circle__recovered"></div>
+                        <span>Recovered</span>
+                    </div>
+                </div>
         </div>
         <div class="right-content">
             <div class="all-cases"></div>
@@ -44,8 +117,8 @@ export default async function createMain() {
     `;
   root.insertAdjacentHTML('beforeend', mainHtmlTemplate);
   getSummary();
-  addMap();
   summaryСountries();
   createSearch();
   await graph();
+  addMap();
 }
