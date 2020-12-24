@@ -25,7 +25,7 @@ export default async function createMain() {
                     <input type="text" class="search-imput" placeholder="Search...">
                     <div class="search"></div>
                 </div>
-                <ul class="map-navigation country-navigation">
+                <ul id="country-nav" class="map-navigation country-navigation">
                     <li><span class"map__item country__total">Total</span>
                         <ul>
                             <li><span>Total Confirmed</span></li>
@@ -60,7 +60,7 @@ export default async function createMain() {
         </div>
         <div class="map-wrapper">
             <div id="map" class="map"></div>
-			    <ul class="map-navigation">
+			    <ul id="map-nav" class="map-navigation">
                     <li><span class"map__item">Total</span>
                         <ul>
 				   		    <li><span>Total Confirmed</span></li>
@@ -90,6 +90,20 @@ export default async function createMain() {
 					    </ul>         
                     </li>          
                 </ul>    
+                <div class="leg">
+                    <div class="leg-wrapper">
+                        <div class="circle__confirmed"></div>
+                        <span>Confirmed</span>
+                    </div>
+                    <div class="leg-wrapper">
+                        <div class="circle__deaths"></div>
+                        <span class="center__span">Deaths</span>
+                    </div>
+                    <div class="leg-wrapper">
+                        <div class="circle__recovered"></div>
+                        <span>Recovered</span>
+                    </div>
+                </div>
         </div>
         <div class="right-content">
             <div class="all-cases"></div>
@@ -104,7 +118,7 @@ export default async function createMain() {
   root.insertAdjacentHTML('beforeend', mainHtmlTemplate);
   getSummary();
   summaryСountries();
-  addMap();
   createSearch();
   await graph();
+  addMap();
 }

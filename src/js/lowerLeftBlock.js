@@ -4,10 +4,6 @@
 /* eslint-disable no-console */
 import { getDataV3 } from './getData';
 
-let allTotal;
-let allItemSpan;
-let allFlag;
-
 export default function summaryСountries() {
   const allURL = 'countries';
 
@@ -38,17 +34,10 @@ export default function summaryСountries() {
 
       const itemImg = document.createElement('img');
       itemImg.classList.add('country__flag');
-      itemImg.src = el.countryInfo.flag;
       item.append(itemImg);
 
       fragment.append(item);
     });
     casesList.append(fragment);
-
-    allTotal = document.querySelectorAll('.country__total');
-    allItemSpan = document.querySelectorAll('.country__item_span');
-    allFlag = document.querySelectorAll('.country__flag');
   });
 }
-
-export { allTotal, allItemSpan, allFlag };

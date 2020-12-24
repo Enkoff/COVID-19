@@ -1,13 +1,12 @@
-/* eslint-disable no-case-declarations */
-/* eslint-disable no-use-before-define */
 /* eslint-disable no-shadow */
-/* eslint-disable no-console */
-/* eslint-disable import/no-mutable-exports */
+/* eslint-disable no-mixed-operators */
+/* eslint-disable array-callback-return */
+/* eslint-disable max-len */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-undef */
-/* eslint-disable array-callback-return */
+/* eslint-disable import/no-mutable-exports */
+
 import { getDataV3 } from './getData';
-import { allTotal, allItemSpan, allFlag } from './lowerLeftBlock';
 
 let myMap;
 
@@ -90,6 +89,12 @@ export default async function addMap() {
     };
 
     getDataV3('countries').then((res) => {
+      const allTotal = document.querySelectorAll('.country__total');
+      const allItemSpan = document.querySelectorAll('.country__item_span');
+      const deathsClass = 'item-deaths';
+      const recoveredClass = 'item-recovered';
+      const countries = res;
+
       res.map((el) => {
         const obj = {
           lat: el.countryInfo.lat,
@@ -104,73 +109,144 @@ export default async function addMap() {
           country: el.country,
         };
 
-        // const allItem = document.querySelectorAll('.country__item');
-        // const deathsClass = 'item-deaths';
-        // const recoveredClass = 'item-recovered';
-        const sorts = res;
         let amount;
         switch (title) {
           case 'Total Confirmed':
             amount = obj.totalConfirmed;
-            const totalConfirmed = sorts.sort((a, b) => (b.cases > a.cases ? 1 : -1));
-            totalConfirmed.map((elem, i) => {
-              allTotal[i].textContent = `${elem.cases}`;
-              allItemSpan[i].textContent = `${elem.country}`;
-              allFlag[i].src = `${elem.countryInfo.flag}`;
+
+            countries.sort((a, b) => (b.cases - a.cases)).map((el, i) => {
+              allTotal[i].textContent = `${el.cases}`;
+              allItemSpan[i].textContent = `${el.country}`;
+              allTotal[i].classList.remove(deathsClass);
+              allTotal[i].classList.remove(recoveredClass);
             });
             break;
           case 'Total Deaths':
             amount = obj.totalDeaths;
-            const totalDeaths = sorts.sort((a, b) => (b.deaths > a.deaths ? 1 : -1));
-            totalDeaths.map((elem, i) => {
-              allTotal[i].textContent = `${elem.cases}`;
-              allItemSpan[i].textContent = `${elem.country}`;
-              allFlag[i].src = `${elem.countryInfo.flag}`;
-            });
+
+            countries.sort((a, b) => (b.deaths - a.deaths))
+              .map((el, i) => {
+                allTotal[i].textContent = `${el.deaths}`;
+                allItemSpan[i].textContent = `${el.country}`;
+                allTotal[i].classList.remove(recoveredClass);
+                allTotal[i].classList.add(deathsClass);
+              });
             break;
           case 'Total Recovered':
             amount = obj.totalRecovered;
+
+            countries.sort((a, b) => (b.recovered - a.recovered))
+              .map((el, i) => {
+                allTotal[i].textContent = `${el.recovered}`;
+                allItemSpan[i].textContent = `${el.country}`;
+                allTotal[i].classList.remove(deathsClass);
+                allTotal[i].classList.add(recoveredClass);
+              });
             break;
           case 'Today Confirmed':
             amount = obj.todayConfirmed;
+
+            countries.sort((a, b) => (b.todayCases - a.todayCases))
+              .map((el, i) => {
+                allTotal[i].textContent = `${el.todayCases}`;
+                allItemSpan[i].textContent = `${el.country}`;
+                allTotal[i].classList.remove(recoveredClass);
+                allTotal[i].classList.remove(deathsClass);
+              });
             break;
           case 'Today Deaths':
             amount = obj.todayDeaths;
+
+            countries.sort((a, b) => (b.todayDeaths - a.todayDeaths))
+              .map((el, i) => {
+                allTotal[i].textContent = `${el.todayDeaths}`;
+                allItemSpan[i].textContent = `${el.country}`;
+                allTotal[i].classList.remove(recoveredClass);
+                allTotal[i].classList.add(deathsClass);
+              });
             break;
           case 'Today Recovered':
             amount = obj.todayRecovered;
+
+            countries.sort((a, b) => (b.todayRecovered - a.todayRecovered))
+              .map((el, i) => {
+                allTotal[i].textContent = `${el.todayRecovered}`;
+                allItemSpan[i].textContent = `${el.country}`;
+                allTotal[i].classList.remove(deathsClass);
+                allTotal[i].classList.add(recoveredClass);
+              });
             break;
           case 'Total Confirmed / 100.000':
             amount = Math.ceil((obj.totalConfirmed / obj.population) * 100000);
+
+            countries.sort((a, b) => (b.cases / b.population * 100000) - (a.cases / a.population * 100000))
+              .map((el, i) => {
+                allTotal[i].textContent = `${Math.ceil((el.cases / el.population) * 100000)}`;
+                allItemSpan[i].textContent = `${el.country}`;
+                allTotal[i].classList.remove(recoveredClass);
+                allTotal[i].classList.remove(deathsClass);
+              });
             break;
           case 'Total Deaths / 100.000':
             amount = Math.ceil((obj.totalDeaths / obj.population) * 100000);
+
+            countries.sort((a, b) => (b.deaths / b.population * 100000) - (a.deaths / a.population * 100000))
+              .map((el, i) => {
+                allTotal[i].textContent = `${Math.ceil((el.deaths / el.population) * 100000)}`;
+                allItemSpan[i].textContent = `${el.country}`;
+                allTotal[i].classList.remove(recoveredClass);
+                allTotal[i].classList.add(deathsClass);
+              });
             break;
           case 'Total Recovered / 100.000':
             amount = Math.ceil((obj.totalRecovered / obj.population) * 100000);
+
+            countries.sort((a, b) => (b.recovered / b.population * 100000) - (a.recovered / a.population * 100000))
+              .map((el, i) => {
+                allTotal[i].textContent = `${Math.ceil((el.recovered / el.population) * 100000)}`;
+                allItemSpan[i].textContent = `${el.country}`;
+                allTotal[i].classList.remove(deathsClass);
+                allTotal[i].classList.add(recoveredClass);
+              });
             break;
           case 'Today Confirmed / 100.000':
             amount = Math.ceil((obj.todayConfirmed / obj.population) * 100000);
+
+            countries.sort((a, b) => (b.todayCases / b.population * 100000) - (a.todayCases / a.population * 100000))
+              .map((el, i) => {
+                allTotal[i].textContent = `${Math.ceil((el.todayCases / el.population) * 100000)}`;
+                allItemSpan[i].textContent = `${el.country}`;
+                allTotal[i].classList.remove(recoveredClass);
+                allTotal[i].classList.remove(deathsClass);
+              });
             break;
           case 'Today Deaths / 100.000':
             amount = Math.ceil((obj.todayDeaths / obj.population) * 100000);
+
+            countries.sort((a, b) => (b.todayDeaths / b.population * 100000) - (a.todayDeaths / a.population * 100000))
+              .map((el, i) => {
+                allTotal[i].textContent = `${(Math.ceil((el.todayDeaths / el.population) * 100000))}`;
+                allItemSpan[i].textContent = `${el.country}`;
+                allTotal[i].classList.remove(recoveredClass);
+                allTotal[i].classList.add(deathsClass);
+              });
             break;
           case 'Today Recovered / 100.000':
             amount = Math.ceil((obj.todayRecovered / obj.population) * 100000);
+
+            countries.sort((a, b) => (b.todayRecovered / b.population * 100000) - (a.todayRecovered / a.population * 100000))
+              .map((el, i) => {
+                allTotal[i].textContent = `${Math.ceil((el.todayRecovered / el.population) * 100000)}`;
+                allItemSpan[i].textContent = `${el.country}`;
+                allTotal[i].classList.remove(deathsClass);
+                allTotal[i].classList.add(recoveredClass);
+              });
             break;
           default:
             break;
         }
         const popupText = `<b>${obj.country.toUpperCase()}</b><br>${title}: ${amount}`;
         createCircle(obj.lat, obj.long, amount, popupText, obj.country);
-
-        // function changeItem(sortCountries) {
-        //   sortCountries.map((elem, i) => {
-        //     allTotal[i].textContent = `${elem.cases}`;
-        //     allItemSpan[i].textContent = `${elem.country}`;
-        //     allFlag[i].src = `${elem.countryInfo.flag}`;
-        //   });
-        // }
       });
     });
   };
@@ -182,21 +258,31 @@ export default async function addMap() {
     allMrker = [];
   };
 
-  const mapNavigatin = document.querySelectorAll('.map-navigation');
-  console.log(mapNavigatin);
-  for (const iterator of mapNavigatin) {
-    iterator.addEventListener('click', (e) => {
-      const clickText = e.target.innerText;
-      removeMarker();
-      if (clickText.indexOf('Deaths') !== -1) {
-        createMarker(black, clickText);
-      } else if (clickText.indexOf('Recovered') !== -1) {
-        createMarker(lightGreen, clickText);
-      } else {
-        createMarker(red, clickText);
-      }
-    });
-  }
+  const mapNav = document.querySelector('#map-nav');
+  mapNav.addEventListener('click', (e) => {
+    const clickText = e.target.innerText;
+    removeMarker();
+    if (clickText.indexOf('Deaths') !== -1) {
+      createMarker(black, clickText);
+    } else if (clickText.indexOf('Recovered') !== -1) {
+      createMarker(lightGreen, clickText);
+    } else {
+      createMarker(red, clickText);
+    }
+  });
+
+  const countryNav = document.querySelector('#country-nav');
+  countryNav.addEventListener('click', (e) => {
+    const clickText = e.target.innerText;
+    removeMarker();
+    if (clickText.indexOf('Deaths') !== -1) {
+      createMarker(black, clickText);
+    } else if (clickText.indexOf('Recovered') !== -1) {
+      createMarker(lightGreen, clickText);
+    } else {
+      createMarker(red, clickText);
+    }
+  });
   createMarker(red, 'Total Confirmed');
 }
 
